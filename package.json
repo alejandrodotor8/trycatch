@@ -2,17 +2,23 @@
   "name": "@a8/trycatch",
   "version": "0.0.1",
   "description": "Try catch wrapper",
+  "keywords": [
+    "trycatch"
+  ],
+  "homepage": "https://github.com/alejandrodotor8/trycatch",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alejandrodotor8/trycatch.git"
+  },
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts --out-dir dist",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "publish": "npm publish --access public"
   },
-  "keywords": [
-    "trycatch"
-  ],
   "author": "alejandrodotor8",
   "license": "MIT",
   "devDependencies": {
