@@ -1,5 +1,5 @@
 {
-  "name": "@a8/trycatch",
+  "name": "a8-trycatch",
   "version": "0.0.1",
   "description": "Try catch wrapper",
   "keywords": [
