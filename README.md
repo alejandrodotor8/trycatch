@@ -5,13 +5,13 @@ Utility helper that wraps a promise and returns a tuple with an error and the re
 ## Installation
 
 ```bash
-pnpm add @a8/trycatch
+pnpm add a8-trycatch
 ```
 
 ## Usage
 
 ```ts
-import { tryCatch } from "@a8/trycatch";
+import { tryCatch } from "a8-trycatch";
 
 async function fetchUser(id: string) {
   const [error, user] = await tryCatch(getUserFromApi(id));
