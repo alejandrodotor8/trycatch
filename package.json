@@ -6,7 +6,9 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --out-dir dist"
+    "build": "tsup src/index.ts --format cjs,esm --dts --out-dir dist",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [
     "trycatch"
@@ -17,6 +19,7 @@
     "eslint": "9.38.0",
     "prettier": "3.6.2",
     "tsup": "8.5.0",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "3.2.4"
   }
 }
