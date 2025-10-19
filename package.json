@@ -1,0 +1,22 @@
+{
+  "name": "@a8/trycatch",
+  "version": "0.0.1",
+  "description": "Try catch wrapper",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --out-dir dist"
+  },
+  "keywords": [
+    "trycatch"
+  ],
+  "author": "alejandrodotor8",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "9.38.0",
+    "prettier": "3.6.2",
+    "tsup": "8.5.0",
+    "typescript": "5.9.3"
+  }
+}
