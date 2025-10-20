@@ -1,9 +1,12 @@
-import { describe, expect, it } from "vitest";
-import { tryCatch } from "../trycatch";
+import { describe, expect, it, vi } from "vitest";
+import { tryCatch, tryCatchSync } from "../trycatch";
 
 describe("tryCatch", () => {
   it("returns the resolved value and null error when the promise resolves", async () => {
-    const [error, data] = await tryCatch(Promise.resolve("value"));
+    const [error, data] = await tryCatch(
+      async (value: string) => value,
+      "value"
+    );
 
     expect(error).toBeNull();
     expect(data).toBe("value");
@@ -11,7 +14,9 @@ describe("tryCatch", () => {
 
   it("captures the rejection error and returns null data when the promise rejects", async () => {
     const rejection = new Error("Something went wrong");
-    const [error, data] = await tryCatch(Promise.reject(rejection));
+    const [error, data] = await tryCatch(async () => {
+      throw rejection;
+    });
 
     expect(error).toBe(rejection);
     expect(data).toBeNull();
@@ -21,9 +26,65 @@ describe("tryCatch", () => {
     class CustomError extends Error {}
     const customError = new CustomError("Custom failure");
 
-    const [error] = await tryCatch<never, CustomError>(
-      Promise.reject(customError)
+    const failingTask = (): Promise<never> =>
+      Promise.reject<never>(customError);
+
+    const [error] = await tryCatch<typeof failingTask, CustomError>(
+      failingTask
     );
+
+    expect(error).toBeInstanceOf(CustomError);
+    expect(error).toBe(customError);
+  });
+
+  it("passes arguments to the async callback", async () => {
+    const callback = vi.fn(async (a: number, b: number) => a + b);
+
+    const [error, data] = await tryCatch(callback, 2, 3);
+
+    expect(callback).toHaveBeenCalledWith(2, 3);
+    expect(error).toBeNull();
+    expect(data).toBe(5);
+  });
+});
+
+describe("tryCatchSync", () => {
+  it("returns the value and null error when the function succeeds", () => {
+    const [error, data] = tryCatchSync(() => "value");
+
+    expect(error).toBeNull();
+    expect(data).toBe("value");
+  });
+
+  it("passes arguments to the callback and returns the value", () => {
+    const callback = vi.fn((a: number, b: number) => a + b);
+
+    const [error, data] = tryCatchSync(callback, 2, 3);
+
+    expect(callback).toHaveBeenCalledWith(2, 3);
+    expect(error).toBeNull();
+    expect(data).toBe(5);
+  });
+
+  it("captures the rejection error and returns null data when the function throws", () => {
+    const rejection = new Error("Something went wrong");
+    const [error, data] = tryCatchSync(() => {
+      throw rejection;
+    });
+
+    expect(error).toBe(rejection);
+    expect(data).toBeNull();
+  });
+
+  it("preserves custom error instances", () => {
+    class CustomError extends Error {}
+    const customError = new CustomError("Custom failure");
+
+    const failingTask = (): never => {
+      throw customError;
+    };
+
+    const [error] = tryCatchSync<typeof failingTask, CustomError>(failingTask);
 
     expect(error).toBeInstanceOf(CustomError);
     expect(error).toBe(customError);
