@@ -29,9 +29,7 @@ describe("tryCatch", () => {
     const failingTask = (): Promise<never> =>
       Promise.reject<never>(customError);
 
-    const [error] = await tryCatch<typeof failingTask, CustomError>(
-      failingTask
-    );
+    const [error] = await tryCatch<never, [], CustomError>(failingTask);
 
     expect(error).toBeInstanceOf(CustomError);
     expect(error).toBe(customError);
@@ -84,7 +82,7 @@ describe("tryCatchSync", () => {
       throw customError;
     };
 
-    const [error] = tryCatchSync<typeof failingTask, CustomError>(failingTask);
+    const [error] = tryCatchSync<never, [], CustomError>(failingTask);
 
     expect(error).toBeInstanceOf(CustomError);
     expect(error).toBe(customError);
