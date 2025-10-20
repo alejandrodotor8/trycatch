@@ -28,7 +28,14 @@ async function fetchUser(id: string) {
 
 ## API
 
-### `tryCatch<Return, Args extends unknown[], E = Error>(callback: (...args: Args) => Promise<Return>, ...args: Args): Promise<[E | null, Return | null]>`
+### `tryCatch`
+
+```ts
+function tryCatch<Return, Args extends unknown[], E = Error>(
+  callback: (...args: Args) => Promise<Return>,
+  ...args: Args
+): Promise<[E | null, Return | null]>;
+```
 
 - `callback`: Async function returning a promise.
 - `...args`: Arguments forwarded to the callback.
@@ -45,7 +52,14 @@ async function mightThrow(): Promise<string> {
 const [error, data] = await tryCatch<string, [], ValidationError>(mightThrow);
 ```
 
-### `tryCatchSync<Return, Args extends unknown[], E = Error>(callback: (...args: Args) => Return, ...args: Args): [E | null, Return | null]`
+### `tryCatchSync`
+
+```ts
+function tryCatchSync<Return, Args extends unknown[], E = Error>(
+  callback: (...args: Args) => Return,
+  ...args: Args
+): [E | null, Return | null];
+```
 
 - `callback`: Synchronous function to execute.
 - `...args`: Arguments forwarded to the callback.
