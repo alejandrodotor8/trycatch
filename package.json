@@ -1,6 +1,6 @@
 {
   "name": "a8-trycatch",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Try catch wrapper",
   "keywords": [
     "trycatch"
