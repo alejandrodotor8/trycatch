@@ -69,4 +69,5 @@ jobs:
       - name: Publish package
         run: pnpm release
         env:
+          PNPM_GIT_CHECKS: "false"
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
