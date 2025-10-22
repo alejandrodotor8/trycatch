@@ -14,10 +14,11 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --out-dir dist",
+    "build": "tsup src/index.ts --format cjs,esm --dts --out-dir dist --clean",
     "test": "vitest run",
     "test:watch": "vitest",
-    "publish": "npm publish --access public"
+    "prepublishOnly": "pnpm run test && pnpm run build",
+    "release": "pnpm publish --access public"
   },
   "author": "alejandrodotor8",
   "license": "MIT",
