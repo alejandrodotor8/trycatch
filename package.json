@@ -17,7 +17,6 @@
     "build": "tsup src/index.ts --format cjs,esm --dts --out-dir dist --clean",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepublishOnly": "pnpm run test && pnpm run build",
     "release": "pnpm publish --access public --no-git-checks"
   },
   "author": "alejandrodotor8",
